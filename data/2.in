@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+//asdasda
+string str = "/*/**////*/*/*/*/*/*//***/////";
+/*
+asdasdasdasd
+*/
+
+int main() //asdasdasd
+{
+    int a,b;
+    cin >> a >> b; 
+    cout << a+b << "//";
+}
+//
