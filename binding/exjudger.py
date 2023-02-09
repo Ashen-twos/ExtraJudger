@@ -72,6 +72,9 @@ class ExtraJudger(object):
     def Judge(self):
         return _exjudger.ExtraJudger_Judge(self)
 
+    def GetResult(self):
+        return _exjudger.ExtraJudger_GetResult(self)
+
 # Register ExtraJudger in _exjudger:
 _exjudger.ExtraJudger_swigregister(ExtraJudger)
 

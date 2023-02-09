@@ -11,6 +11,6 @@ private:
 public:
     JudgerException(int line, const string errInfo);
     ~JudgerException();
-    virtual const char * what() const throw();
+    const char * what() const throw();
 };
 

@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
 #include "src/ExtraJudger.h"
+#include "src/Exception/JudgerException.h"
 
 using namespace std;
+
 /* void ProcessComment(string& m_RowStr)
 {
     vector<pair<int,int>> vet;
@@ -198,27 +200,12 @@ int check(string src, int m_IndentSize, bool m_LeftBigPara)
 
 int main(){
     //check("data/1.in", 4);
-    /* ifstream fin("data/2.in");
+    ifstream fin("data/2.in");
     stringstream buf;
     buf << fin.rdbuf();
-    string m_RowStr = buf.str();
-    ProcessComment(m_RowStr);
-    cout  << check(m_RowStr,4,true) << "Line: "; */
-    try
-    {
-        ExtraJudger* judger = new ExtraJudger("data/2.in", 4, true);
-        judger->Judge();
-    }
-    catch(const JudgerException& e)
-    {
-        cout << e.what() << '\n';
-    }
-    catch(const exception &e)
-    {
-        cout << e.what() << '\n';
-    }
-    
-    
-
+    string Str = buf.str();
+    ExtraJudger* judger = new ExtraJudger(Str, 4, true);
+    judger->Judge();
+    cout << judger->GetResult();
     return 0;
 }

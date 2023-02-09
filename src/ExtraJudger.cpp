@@ -61,7 +61,7 @@ bool ExtraJudger::ProcessRow()
     m_CurrentRow++;
     m_CurrentIsSingle = m_NextIsSingle;
     m_NextIsSingle = false;
-    info("Line {}  Layer {}  Current {} Next {}", m_CurrentRow, m_CurrentLayer, m_CurrentIsSingle, m_NextIsSingle);
+    info("Line {} Len:{} Layer:{} Single:{}", m_CurrentRow, m_RowStr.length(),m_CurrentLayer, m_CurrentIsSingle, m_NextIsSingle);
     info(m_RowStr);
 
     //空行的情况
@@ -83,7 +83,7 @@ bool ExtraJudger::ProcessRow()
         else
             break;
     }
-    for(; end>=0 && m_RowStr[end] == ' '; end--);
+    for(; end>=start && (m_RowStr[end]==' ' || m_RowStr[end]=='\t'); end--);
     if(start>end)
     {
         info("Line {}: 空行", m_CurrentRow);
@@ -166,7 +166,7 @@ bool ExtraJudger::ProcessRow()
     return true;
 }
 
-string ExtraJudger::Judge()
+void ExtraJudger::Judge()
 {
     try
     {
@@ -184,17 +184,23 @@ string ExtraJudger::Judge()
             }
         }
         info("Judge Finish");
-        return "success";
+        m_result = "success";
     }
     catch(const JudgerException& e)
     {
-        return e.what();
+        m_result = e.what();
     }
+}
+
+const char* ExtraJudger::GetResult()
+{
+    return m_result.c_str();
 }
 
 const char* judge(const char* src, int indentSize, bool leftBigPara)
 {
     ExtraJudger* judger = new ExtraJudger(src,indentSize,leftBigPara);
-    return judger->Judge().c_str();
+    judger->Judge();
+    return judger->GetResult();
 }
 

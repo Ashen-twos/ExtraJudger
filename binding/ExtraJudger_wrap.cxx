@@ -2947,6 +2947,38 @@ SWIG_pchar_descriptor(void)
 }
 
 
+SWIGINTERNINLINE PyObject *
+SWIG_FromCharPtrAndSize(const char* carray, size_t size)
+{
+  if (carray) {
+    if (size > INT_MAX) {
+      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+      return pchar_descriptor ? 
+	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+    } else {
+#if PY_VERSION_HEX >= 0x03000000
+#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
+      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#else
+      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
+#endif
+#else
+      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
+#endif
+    }
+  } else {
+    return SWIG_Py_Void();
+  }
+}
+
+
+SWIGINTERNINLINE PyObject * 
+SWIG_FromCharPtr(const char *cptr)
+{ 
+  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
+}
+
+
 SWIGINTERN int
 SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
 {
@@ -3056,38 +3088,6 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
 
 
 
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
-}
-
-
-SWIGINTERNINLINE PyObject * 
-SWIG_FromCharPtr(const char *cptr)
-{ 
-  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
-}
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -3165,7 +3165,6 @@ SWIGINTERN PyObject *_wrap_ExtraJudger_Judge(PyObject *SWIGUNUSEDPARM(self), PyO
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  string result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -3174,8 +3173,31 @@ SWIGINTERN PyObject *_wrap_ExtraJudger_Judge(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExtraJudger_Judge" "', argument " "1"" of type '" "ExtraJudger *""'"); 
   }
   arg1 = reinterpret_cast< ExtraJudger * >(argp1);
-  result = (arg1)->Judge();
-  resultobj = SWIG_NewPointerObj((new string(static_cast< const string& >(result))), SWIGTYPE_p_string, SWIG_POINTER_OWN |  0 );
+  (arg1)->Judge();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ExtraJudger_GetResult(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ExtraJudger *arg1 = (ExtraJudger *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  char *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ExtraJudger, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExtraJudger_GetResult" "', argument " "1"" of type '" "ExtraJudger *""'"); 
+  }
+  arg1 = reinterpret_cast< ExtraJudger * >(argp1);
+  result = (char *)(arg1)->GetResult();
+  resultobj = SWIG_FromCharPtr((const char *)result);
   return resultobj;
 fail:
   return NULL;
@@ -3239,6 +3261,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "new_ExtraJudger", _wrap_new_ExtraJudger, METH_VARARGS, NULL},
 	 { "delete_ExtraJudger", _wrap_delete_ExtraJudger, METH_O, NULL},
 	 { "ExtraJudger_Judge", _wrap_ExtraJudger_Judge, METH_O, NULL},
+	 { "ExtraJudger_GetResult", _wrap_ExtraJudger_GetResult, METH_O, NULL},
 	 { "ExtraJudger_swigregister", ExtraJudger_swigregister, METH_O, NULL},
 	 { "ExtraJudger_swiginit", ExtraJudger_swiginit, METH_VARARGS, NULL},
 	 { "judge", _wrap_judge, METH_VARARGS, NULL},

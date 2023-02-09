@@ -19,6 +19,7 @@ private:
 
     string m_RowStr;            //当前行
     string m_Buff;              //缓冲区
+    string m_result;            //结果
 
     void ProcessComment();      //处理注释
     bool ProcessRow();          //处理单行
@@ -26,7 +27,8 @@ private:
 public:
     ExtraJudger(string src, int indentSize, bool leftBigPara);
     ~ExtraJudger();
-    string Judge();
+    void Judge();
+    const char* GetResult();
 };
 
 const char* judge(const char* src, int indentSize, bool leftBigPara);
