@@ -1,16 +1,43 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-//asdasda
-string str = "/*/**////*/*/*/*/*/*//***/////";
-/*
-asdasdasdasd
-*/
-
-int main() //asdasdasd
+#include<stdio.h>
+#include<string.h>
+void doublestr(char s[])
 {
-    int a,b;
-    cin >> a >> b; 
-    cout << a+b << "//";
+    char temp = 0;
+    while ((temp = getchar()) != '\n')
+        for (int i = 0; i < 2; ++i)
+            printf("%c", temp);
+    printf("\n");
 }
-//
+
+void dispartstr(char s[]) 
+{
+    char q, w, e, i, z[100] = { 0 }, x[100] = { 0 }, c[100] = { 0 }, v[100] = {0};
+    int zs = 0, xs = 0, cs = 0, pp = 0;
+    while ((e = getchar()) != '\n')
+    {
+        if (e >= 'a' && e <= 'z' || e >= 'A' && e <= 'Z')
+            z[zs++] = e;
+        else if (e >= '0' && e <= '9')
+            x[xs++] = e;
+        else if (e == ' ')
+            v[pp++] = e;
+        else
+            c[cs++] = e;
+    }
+    w = pp;
+    for(i=0;i<(w);i++)
+    {
+        x[i] = '*';
+    }
+    printf("%s%s%s%s", z, v, c, x);
+}
+
+int main()
+{
+    char str[81];
+    printf("please input a string: ");
+    doublestr(str);
+    printf("Please enter Sort Character: ");
+    dispartstr(str);
+    return 0;
+}
