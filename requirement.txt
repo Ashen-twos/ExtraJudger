@@ -1,6 +1,5 @@
 # apt
 python-dev-is-python3
 swig
-sdplog
-
+libspdlog-dev
 #
