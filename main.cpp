@@ -204,8 +204,14 @@ int main(){
     stringstream buf;
     buf << fin.rdbuf();
     string Str = buf.str();
-    ExtraJudger* judger = new ExtraJudger(Str, 4, true);
-    judger->Judge();
+    ExtraJudger* judger = new ExtraJudger(Str.c_str());
+    judger->FormatJudge(4,true);
     cout << judger->GetResult();
+    //cout << format_judge(Str.c_str(),4,true) << '\n';
+    string strs = "sort lower_bound";
+    judger->FuncJudge(strs.c_str());
+    cout << judger->GetResult(); 
+    //cout << func_judge(Str.c_str(),strs.c_str()) << '\n';
+    delete judger;
     return 0;
 }

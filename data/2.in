@@ -1,34 +1,27 @@
-void dispartstr(char s[])
-{
-	char letters[15],blank[15];
-	int num[15],i;
-	while(s[i]!='\n')
-	{	
-	  
-	    if(s[i]>='a'&&s[i]<='z')
-	        letters[15]=letters[15]+s[i];
-	  
-	    else if(s[i]>='0'&&s[i]<='9')
-	        num[15]=num[15]+s[i];
-	  
-	    else if(s[i]==' ')
-	        blank[15]=blank[15]+s[i];	
-    }
 
-    
-}
-    
-int main()
-{ 
+/*
+
+*/
+
+
+
+/*
+
+
+
+
+*/
+
+
+int main(){ 
     char str[81]; 
-    printf("\nplease input a string:\n"); 
+    printf(°∞\nplease input a string:\n°±); 
 	gets(str); 
-    printf("double string:"); 
+    printf(°∞double string:°±); 
 	doublestr(str); 
 	puts(str); 
-    //printf(“dispart string:”); dispartstr(str); puts(str);
-    return 0;
+	lower_bound(123,123);
+	
+    //printf(°∞dispart string:°±); dispartstr(str); puts(str);
 }
-
-
 

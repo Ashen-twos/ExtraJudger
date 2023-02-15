@@ -65,12 +65,15 @@ class ExtraJudger(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, src, indentSize, leftBigPara):
-        _exjudger.ExtraJudger_swiginit(self, _exjudger.new_ExtraJudger(src, indentSize, leftBigPara))
+    def __init__(self, src):
+        _exjudger.ExtraJudger_swiginit(self, _exjudger.new_ExtraJudger(src))
     __swig_destroy__ = _exjudger.delete_ExtraJudger
 
-    def Judge(self):
-        return _exjudger.ExtraJudger_Judge(self)
+    def FormatJudge(self, indentSize, leftBigPara):
+        return _exjudger.ExtraJudger_FormatJudge(self, indentSize, leftBigPara)
+
+    def FuncJudge(self, func):
+        return _exjudger.ExtraJudger_FuncJudge(self, func)
 
     def GetResult(self):
         return _exjudger.ExtraJudger_GetResult(self)
@@ -79,7 +82,10 @@ class ExtraJudger(object):
 _exjudger.ExtraJudger_swigregister(ExtraJudger)
 
 
-def judge(src, indentSize, leftBigPara):
-    return _exjudger.judge(src, indentSize, leftBigPara)
+def format_judge(src, indentSize, leftBigPara):
+    return _exjudger.format_judge(src, indentSize, leftBigPara)
+
+def func_judge(src, func):
+    return _exjudger.func_judge(src, func)
 
 
