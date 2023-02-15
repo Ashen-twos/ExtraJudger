@@ -22,23 +22,22 @@ class JudgeServer:
     
     @classmethod
     def test(cls, src, config):
-        exj = exjudger.ExtraJudger(src)
+        ex_judger = exjudger.ExtraJudger(src)
         test_cases = []
         if "format" in config:
             if config["format"]["enable"]:
                 indentSize = config["format"]["indentSize"]
                 leftBigPara = config["format"]["leftBigPara"]
                 # result = exjudger.format_judge(src, indentSize, leftBigPara)
-                exj.FormatJudge(indentSize, leftBigPara)
-                result = exj.GetResult()
+                ex_judger.FormatJudge(indentSize, leftBigPara)
+                result = ex_judger.GetResult()
                 test_cases.append({"name":"format", "pass":result=="success", "info":result})
                 print(result)
         if "function" in config:
             if config["function"]["enable"]:
                 funclist = config["function"]["list"]
-                exj.FuncJudge(funclist[0] + ' ' + funclist[1])
-                # result = exjudger.func_judge(src,funclist[0] + funclist[1])
-                result = exj.GetResult()
+                ex_judger.FuncJudge(funclist[0] + ' ' + funclist[1])
+                result = ex_judger.GetResult()
                 print(result)
                 test_cases.append({"name":"format", "pass":result=="success", "info":result})
         return test_cases

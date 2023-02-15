@@ -288,7 +288,11 @@ void ExtraJudger::FuncJudge(const char* func)
         {
             if(i==tmp.length() || tmp[i] == ' ')
             {
-                vet.push_back(tmp.substr(las,i-las));
+                if(i>las)
+                {
+                    vet.push_back(tmp.substr(las,i-las));
+                    info("检测函数: {}",vet.back());
+                }
                 las = i+1;
             }
         }

@@ -12,15 +12,24 @@
 
 */
 
+	struct  yyy{
+		int a;
+	};
+yyy
+sort()
+{
+	return yyy;
+}
+
 
 int main(){ 
     char str[81]; 
+	sort();
     printf(°∞\nplease input a string:\n°±); 
 	gets(str); 
     printf(°∞double string:°±); 
 	doublestr(str); 
 	puts(str); 
-	lower_bound(123,123);
 	
     //printf(°∞dispart string:°±); dispartstr(str); puts(str);
 }
