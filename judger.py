@@ -35,8 +35,11 @@ class JudgeServer:
                 print(result)
         if "function" in config:
             if config["function"]["enable"]:
-                funclist = config["function"]["list"]
-                ex_judger.FuncJudge(funclist[0] + ' ' + funclist[1])
+                funclist = config["function"]["funclist"]
+                funcs = ""
+                for func in funclist:
+                    funcs += " " + func
+                ex_judger.FuncJudge(funcs)
                 result = ex_judger.GetResult()
                 print(result)
                 test_cases.append({"name":"format", "pass":result=="success", "info":result})

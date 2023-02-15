@@ -82,10 +82,4 @@ class ExtraJudger(object):
 _exjudger.ExtraJudger_swigregister(ExtraJudger)
 
 
-def format_judge(src, indentSize, leftBigPara):
-    return _exjudger.format_judge(src, indentSize, leftBigPara)
-
-def func_judge(src, func):
-    return _exjudger.func_judge(src, func)
-
 
