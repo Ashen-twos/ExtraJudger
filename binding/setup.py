@@ -5,7 +5,7 @@ mod_module = Extension('_exjudger',
                                     '../src/Exception/JudgerException.cpp'],
                            )
 setup (name = 'exjudger',
-       version = '1.0',
+       version = '2.0',
        author      = "beshar",
        description = """Simple swig example from docs""",
        ext_modules = [mod_module],
