@@ -5,9 +5,6 @@ using namespace spdlog;
 ExtraJudger::ExtraJudger(const char* src)
 :m_CurrentRow(0), m_Buff(src)
 {
-    m_DataType["char"] = 1; m_DataType["int"] = 1; m_DataType["short"] = 1;
-    m_DataType["long"] = 1; m_DataType["float"] = 1; m_DataType["double"] = 1;
-    m_DataType["void"] = 1;
     ProcessComment();
 }
 
