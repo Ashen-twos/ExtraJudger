@@ -1,36 +1,8 @@
-
+int * main();
 /*
-
+sort(vet.begin,vet.end());
 */
-
-
-
-/*
-
-
-
-
-*/
-
-	struct  yyy{
-		int a;
-	};
-yyy
-sort()
-{
-	return yyy;
-}
-
-
-int main(){ 
-    char str[81]; 
-	sort();
-    printf(°∞\nplease input a string:\n°±); 
-	gets(str); 
-    printf(°∞double string:°±); 
-	doublestr(str); 
-	puts(str); 
-	
-    //printf(°∞dispart string:°±); dispartstr(str); puts(str);
-}
-
+char a;
+int vet[1024];
+//sort();
+int nums[1024];
