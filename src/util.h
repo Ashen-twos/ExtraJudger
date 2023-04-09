@@ -17,8 +17,7 @@ public:
     };
 
     enum char_type{
-        LETTER,
-        NUMBER,
+        LETTER_OR_NUMBER,
         SYMBOL,
         SPACE
     };
@@ -32,10 +31,10 @@ public:
 
     static char_type CheckCharType(char word)   //获取字符类型
     {
-        if((word>='a' && word<='z') || (word>='A' && word<='Z'))
-            return LETTER;
+        if((word>='a' && word<='z') || (word>='A' && word<='Z') || word=='_')
+            return LETTER_OR_NUMBER;
         else if(word>='0' && word<='9')
-            return NUMBER;
+            return LETTER_OR_NUMBER;
         else if(word==' ' || word=='\n' || word=='\t')
             return SPACE;
         else

@@ -3,6 +3,7 @@
 #include "FormatJudger.h"
 #include "FunctionJudger.h"
 #include "MemoryJudger.h"
+#include "StyleJudger.h"
 #include "spdlog/spdlog.h"
 
 using namespace std;
@@ -26,6 +27,9 @@ public:
     void FormatJudge(int indentSize, bool leftBigPara);
     void FuncJudge(const char* func);
     void MemoryJudge(const char* list);
+    void StyleJudge(const char* global_prefix, const char* white_list,
+                    int func_naming, int global_naming, int local_naming, 
+                    bool single_name);
     const char* GetResult();
 };
 

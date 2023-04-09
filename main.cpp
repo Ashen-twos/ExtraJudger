@@ -21,7 +21,13 @@ void Func()
 void Memory()
 {
     judger->MemoryJudge("nums");
-        cout << judger->GetResult() << '\n';
+    cout << judger->GetResult() << '\n';
+}
+
+void Style()
+{
+    judger->StyleJudge("global_", "", 3, 3, 3, true);
+    cout << judger->GetResult() << '\n';
 }
 
 int main(){
@@ -33,8 +39,8 @@ int main(){
     judger = new ExtraJudger(Str.c_str());
     
     //Func();
-    Memory();
-    
+    //Memory();
+    Style();
     delete judger;
     return 0;
 }

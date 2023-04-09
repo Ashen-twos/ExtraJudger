@@ -129,3 +129,22 @@ void ExtraJudger::MemoryJudge(const char* list)
         m_Result = e.what();
     }
 }
+
+void ExtraJudger::StyleJudge(const char* global_prefix, const char* white_list,
+    int func_naming, int global_naming, int local_naming, bool single_name)
+{
+    try
+    {
+        shared_ptr<StyleJudger> judger = make_shared<StyleJudger>(m_Buff, global_prefix, white_list,
+            func_naming, global_naming, local_naming, single_name);
+        judger->judge();
+        if(judger->pass)
+            m_Result = "success";
+    }
+    catch(JudgerException& e)
+    {
+        e.UpdateLine(GetRealRow(e.GetLine()));
+        m_Result = e.what();
+    }
+}
+

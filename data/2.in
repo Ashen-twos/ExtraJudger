@@ -1,8 +1,16 @@
-int * main();
-/*
-sort(vet.begin,vet.end());
-*/
-char a;
-int vet[1024];
-//sort();
-int nums[1024];
+int global_msssya = 0;
+
+int add(int a, int b)
+{
+    return a+b;
+}
+
+
+int main()
+{
+    int asdSasd = 0;
+    for(int i=0; i<n; i++)
+        for(int j=0; j<n; j++)
+            myAns++;
+}
+

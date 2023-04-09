@@ -14,6 +14,7 @@ protected:
     int m_NextWordPtr;
     int m_CurrentRow;
     bool m_InDefineStruct;
+    bool m_InMain;
     util::char_type m_CharType;   //单词类型
     map<string,int> m_DataType;   //数据类型
 

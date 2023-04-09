@@ -2,7 +2,8 @@
 
 using namespace spdlog;
 
-JudgerFSM::JudgerFSM(string& code):Judger(code), m_NextWordPtr(0), m_CurrentRow(1), m_InDefineStruct(false)
+JudgerFSM::JudgerFSM(string& code):Judger(code), 
+m_NextWordPtr(0), m_CurrentRow(1), m_InDefineStruct(false), m_InMain(false)
 {
     m_DataType["char"] = 1; m_DataType["int"] = 1; m_DataType["short"] = 1;
     m_DataType["long"] = 1; m_DataType["float"] = 1; m_DataType["double"] = 1;
@@ -129,6 +130,8 @@ void JudgerFSM::FSM()
             else if(m_CurrentWord[0] == '(')
             {
                 info("定义函数: {}", m_VariableName);
+                if(m_VariableName == "main")
+                    m_InMain = true;
                 state = util::DEFINE_FUNCTION;
                 leftsum = 1;
                 WhenDefineFunction();
