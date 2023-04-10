@@ -1,4 +1,7 @@
 #pragma once
+
+
+
 class util{
 public:
     enum judge_state{
@@ -6,14 +9,17 @@ public:
         DEFINE_DATA_TYPE,
         DEFINE_PTR,
         DEFINE_VARIABLE_NAME,
-        DEFINE_FUNCTION,
+
+        FUNCTION_DEFINE,
+        FUNCTION_DEFINE_PARA,
+        FUNCTION_DEFINE_PARA_TYPE,
+        FUNCTION_DEFINE_PARA_NAME,
 
         STRUCT,
         STRUCT_DEFINE_NAME,
         STRUCT_DEFINE_MEMBER,
 
         VARIABLE_NAME,
-        FUNCTION
     };
 
     enum char_type{
@@ -39,5 +45,23 @@ public:
             return SPACE;
         else
             return SYMBOL;
+    }
+
+    static void ParseString(const char* str, map<string,int>& mp)
+    {
+        vector<string> vet;
+        string tmp(str);
+        int las = 0;
+        for(int i=0; i<=tmp.length(); i++)
+        {
+            if(i==tmp.length() || tmp[i] == ' ')
+            {
+                if(i>las)
+                    vet.push_back(tmp.substr(las,i-las));
+                las = i+1;
+            }
+        }
+        for(int i=0; i<vet.size(); i++)
+            mp[vet[i]] = 1;
     }
 };

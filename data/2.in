@@ -1,16 +1,27 @@
 int global_msssya = 0;
 
-int add(int a, int b)
+int add(int aa, int bb)
 {
+    int ssdsd;
     return a+b;
+    
+}
+
+int asss();
+init();
+int main()
+{
+    int asdasd = 0;
+    for(int i=0; i<n; i++)
+        for(int i=0; i<n; i++)
+            for(int i=0; i<n; i++)
+                myAns++;
+    printf("%d\n", 1);
 }
 
 
-int main()
+int far()
 {
-    int asdSasd = 0;
-    for(int i=0; i<n; i++)
-        for(int j=0; j<n; j++)
-            myAns++;
+
 }
 

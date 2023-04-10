@@ -2,18 +2,44 @@
 
 using namespace spdlog;
 
-FormatJudger::FormatJudger(string& code, int IndentSize, bool LeftBigPara):
-Judger(code), m_IndentSize(IndentSize), m_LeftBigPara(LeftBigPara){}
+FormatJudger::FormatJudger(string& code, int indent_size, bool left_big_para, bool comma_space, int max_statement):
+Judger(code), m_IndentSize(indent_size), m_LeftBigPara(left_big_para), m_CommaSpace(comma_space), m_MaxStatement(max_statement){}
 
 FormatJudger::~FormatJudger(){}
+
+void FormatJudger::CheckSpace()
+{
+    for(int i=0; i<m_RowStr.length(); i++)
+    {
+        if(m_RowStr[i] == ',' && i!= m_RowStr.length())
+        {
+            if(m_RowStr[i+1] != ' ' && m_RowStr[i+1] != '\n' && m_RowStr[i+1] != '\t')
+                throw JudgerException(m_CurrentRow,",后缺少空格");
+        }
+    }
+}
+
+void FormatJudger::CheckStatement()
+{
+    int sum = 0;
+    for(int i=0; i<m_RowStr.length(); i++)
+    {
+        if(m_RowStr[i] == ';')
+        {
+            sum++;
+            if(sum > m_MaxStatement)
+                throw JudgerException(m_CurrentRow,"同一行内出现过多语句");
+        }
+    }
+}
 
 bool FormatJudger::FormatProcessRow()
 {
     m_CurrentRow++;
     m_CurrentIsSingle = m_NextIsSingle;
     m_NextIsSingle = false;
-    info("Line {} Len:{} Layer:{} Single:{}", m_CurrentRow, m_RowStr.length(),m_CurrentLayer, m_CurrentIsSingle, m_NextIsSingle);
-    info(m_RowStr);
+    //info("Line {} Len:{} Layer:{} Single:{}", m_CurrentRow, m_RowStr.length(),m_CurrentLayer, m_CurrentIsSingle, m_NextIsSingle);
+    //info(m_RowStr);
 
     //空行的情况
     if(m_RowStr.length() == 0)
@@ -21,6 +47,11 @@ bool FormatJudger::FormatProcessRow()
         info("Line {}: 空行", m_CurrentRow);   
         return true;
     }
+
+    if(m_CommaSpace)
+        CheckSpace();
+    if(m_MaxStatement)
+        CheckStatement();
 
     //去除首尾空格
     size_t start = 0, end=m_RowStr.length()-1;
@@ -67,7 +98,7 @@ bool FormatJudger::FormatProcessRow()
     }
 
     //判断缩进长度是否合法
-    info("Line {}: space: {} need:{}", m_CurrentRow, space, m_IndentSize*m_CurrentLayer);
+    //info("Line {}: space: {} need:{}", m_CurrentRow, space, m_IndentSize*m_CurrentLayer);
     if(space != m_IndentSize*m_CurrentLayer)
         throw JudgerException(m_CurrentRow, "缩进出错");
 
@@ -89,7 +120,7 @@ bool FormatJudger::FormatProcessRow()
             m_CurrentLayer++;
         }
         else if(m_RowStr[end] == '}')
-            throw JudgerException(m_CurrentRow,"} 不应置于行末");
+            throw JudgerException(m_CurrentRow,"{ 不应置于行末");
         else if(m_RowStr[end] == ')' || m_RowStr[end] == ',')
         {
             m_NextIsSingle = true;

@@ -65,11 +65,11 @@ void ExtraJudger::ProcessComment()
     }
 }
 
-void ExtraJudger::FormatJudge(int indentSize, bool leftBigPara)
+void ExtraJudger::FormatJudge(int indent_size, bool left_big_para, bool comma_space, int max_statement)
 {
     try
     {
-        shared_ptr<FormatJudger> judger = make_shared<FormatJudger>(m_Buff, indentSize, leftBigPara);
+        shared_ptr<FormatJudger> judger = make_shared<FormatJudger>(m_Buff, indent_size, left_big_para, comma_space, max_statement);
         judger->judge();
         if(judger->pass)
             m_Result = "success";
@@ -98,11 +98,11 @@ int ExtraJudger::GetRealRow(int row)
     return row + add;
 }
 
-void ExtraJudger::FuncJudge(const char* func)
+void ExtraJudger::FuncJudge(const char* blacklist, const char* whitelist, int max_statement, bool disableIO)
 {
     try
     {
-        shared_ptr<FunctionJudger> judger = make_shared<FunctionJudger>(m_Buff, func);
+        shared_ptr<FunctionJudger> judger = make_shared<FunctionJudger>(m_Buff, blacklist, whitelist, max_statement, disableIO);
         judger->judge();
         if(judger->pass)
             m_Result = "success";

@@ -78,7 +78,7 @@ void StyleJudger::WhenDefineVariable()
     if(m_SingleName && m_VariableName.length() == 1)
         throw JudgerException(m_CurrentRow, m_VariableName + ": 过短的命名");
     //全局变量
-    if(!m_InMain)
+    if(m_CurrentScope == "")
     {
         if(m_GlobalPrefix.length())
         {

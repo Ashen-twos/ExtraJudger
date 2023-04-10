@@ -2,7 +2,6 @@
 #include <bits/stdc++.h>
 #include "JudgerFSM.h"
 #include "spdlog/spdlog.h"
-#include "Exception/JudgerException.h"
 
 #define CAMEL_CASE 1
 #define UPPER_CASE 2

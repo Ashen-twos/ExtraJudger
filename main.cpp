@@ -8,13 +8,13 @@ ExtraJudger* judger;
 
 void Format()
 {
-    judger->FormatJudge(4,true);
+    judger->FormatJudge(4,true,true,3);
     cout << judger->GetResult() << '\n';
 }
 
 void Func()
 {
-    judger->FuncJudge("sort lower_bound sad asdasdasd safasdfad");
+    judger->FuncJudge("sort lower_bound", "init", 5, true);
     cout << judger->GetResult() << '\n';
 }
 
@@ -38,9 +38,10 @@ int main(){
     string Str = buf.str();
     judger = new ExtraJudger(Str.c_str());
     
+    Format();
     //Func();
     //Memory();
-    Style();
+    //Style();
     delete judger;
     return 0;
 }
