@@ -20,6 +20,9 @@ public:
         STRUCT_DEFINE_MEMBER,
 
         VARIABLE_NAME,
+
+        TYPE_CONVERSION,
+        EXPRESSION
     };
 
     enum char_type{

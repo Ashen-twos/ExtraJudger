@@ -2,26 +2,10 @@
 
 using namespace spdlog;
 
-MemoryJudger::MemoryJudger(string& code, const char* list) : JudgerFSM(code)
+MemoryJudger::MemoryJudger(string& code, const char* white_list, bool check_ptr_free) : JudgerFSM(code),
+m_CheckPtrFree(check_ptr_free)
 {
-    //处理参数
-    vector<string> vet;
-    string tmp(list);
-    int las = 0;
-    for(int i=0; i<=tmp.length(); i++)
-    {
-        if(i==tmp.length() || tmp[i] == ' ')
-        {
-            if(i>las)
-            {
-                vet.push_back(tmp.substr(las,i-las));
-                info("允许数组: {}",vet.back());
-            }
-            las = i+1;
-        }
-    }
-    for(int i=0; i<vet.size(); i++)
-        m_EnableArray[vet[i]] = 1;
+    util::ParseString(white_list, m_EnableArray);
 }
 
 MemoryJudger::~MemoryJudger(){}
@@ -32,8 +16,34 @@ void MemoryJudger::WhenDefineArray()
         throw JudgerException(m_CurrentRow, m_VariableName + ": 不允许的数组");
 }
 
+void MemoryJudger::WhenCallFunction()
+{
+    if(m_CheckPtrFree)
+    {
+        if(m_EqualLeft != "" && m_VariableName == "malloc")
+            m_MallocPtr[m_EqualLeft] = m_CurrentRow;
+        else if(m_VariableName == "free")
+        {
+            NextWord();
+            m_MallocPtr[m_CurrentWord] = 0;
+        }
+    }
+}
+
+void MemoryJudger::WhenStatementEnd()
+{
+    if(m_EqualLeft != "")
+        m_EqualLeft = "";
+}
+
 void MemoryJudger::judge()
 {
     FSM();
+    if(m_CheckPtrFree)
+    {
+        for(auto iter=m_MallocPtr.begin(); iter != m_MallocPtr.end(); iter++)
+            if(iter->second != 0)
+                throw JudgerException(iter->second, iter->first + ": 未释放的指针");
+    }
     pass = true;
 }

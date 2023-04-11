@@ -1,26 +1,26 @@
-int global_msssya = 0;
+char* global_itertr;
+iter = (char*) malloc(sizeof(int)*1024);
+int asssole();
 
-int add(int aa, int bb)
+int addum()
 {
-    int ssdsd;
-    return a+b;
-    
+    scanf("%d",&a);
 }
 
-int asss();
-init();
-int main()
+int main() 
 {
-    int asdasd = 0;
+    int ans = 0;
+    int maxum[1024];
     for(int i=0; i<n; i++)
         for(int i=0; i<n; i++)
             for(int i=0; i<n; i++)
                 myAns++;
     printf("%d\n", 1);
+    free(ptr);
 }
 
-
-int far()
+free(iter);
+int farar()
 {
 
 }

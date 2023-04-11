@@ -13,14 +13,16 @@ protected:
     string m_CurrentWord;
     string m_VariableName;
     string m_CurrentScope;
+    string m_EqualLeft;
     int m_NextWordPtr;
     int m_CurrentRow;
     int m_SumOfBigPara;
     int m_SumOfSmallPara;
     bool m_InDefineStruct;
     bool m_InFor;
-    util::char_type m_CharType;   //单词类型
-    map<string,int> m_DataType;   //数据类型
+    util::char_type m_CharType;    //单词类型
+    util::judge_state m_PreState;  //上一个状态
+    map<string,int> m_DataType;    //数据类型
 
     void NextWord();              //下一个单词
     util::word_type CheckWordType(string& word);

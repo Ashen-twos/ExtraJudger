@@ -54,7 +54,7 @@ void FunctionJudger::judge()
     FSM();
     for(auto iter=m_FunctionWhitelist.begin(); iter!=m_FunctionWhitelist.end(); iter++)
         if(iter->second > 0)
-            throw JudgerException(m_CurrentRow, iter->first + "未使用的函数");
+            throw JudgerException(m_CurrentRow, iter->first + "()未使用的函数");
     pass = true;
 }
 

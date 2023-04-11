@@ -27,7 +27,7 @@ public:
     void FormatJudge(int indent_size, bool left_big_para, bool comma_space, int max_statement);
     void FuncJudge(const char* blacklist, const char* whitelist, 
                     int max_statement, bool disableIO);
-    void MemoryJudge(const char* list);
+    void MemoryJudge(const char* white_list, bool check_ptr_free);
     void StyleJudge(const char* global_prefix, const char* white_list,
                     int func_naming, int global_naming, int local_naming, 
                     bool single_name);

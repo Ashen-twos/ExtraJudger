@@ -114,11 +114,11 @@ void ExtraJudger::FuncJudge(const char* blacklist, const char* whitelist, int ma
     }
 }
 
-void ExtraJudger::MemoryJudge(const char* list)
+void ExtraJudger::MemoryJudge(const char* white_list, bool check_ptr_free)
 {
     try
     {
-        shared_ptr<MemoryJudger> judger = make_shared<MemoryJudger>(m_Buff, list);
+        shared_ptr<MemoryJudger> judger = make_shared<MemoryJudger>(m_Buff, white_list, check_ptr_free);
         judger->judge();
         if(judger->pass)
             m_Result = "success";

@@ -3,7 +3,7 @@
 using namespace spdlog;
 
 JudgerFSM::JudgerFSM(string& code):Judger(code), 
-m_NextWordPtr(0), m_CurrentRow(1), m_InDefineStruct(false), m_CurrentScope(""), m_SumOfBigPara(0), m_SumOfSmallPara(0), m_InFor(false)
+m_NextWordPtr(0), m_CurrentRow(1), m_InDefineStruct(false), m_CurrentScope(""), m_EqualLeft(""), m_SumOfBigPara(0), m_SumOfSmallPara(0), m_InFor(false)
 {
     m_DataType["char"] = 1; m_DataType["int"] = 1; m_DataType["short"] = 1;
     m_DataType["long"] = 1; m_DataType["float"] = 1; m_DataType["double"] = 1;
@@ -72,8 +72,6 @@ util::word_type JudgerFSM::CheckWordType(string& word)
 
 void JudgerFSM::FSM()
 {
-    //变量名
-    m_VariableName;
     //当前状态
     util::judge_state state = util::INIT;
     while (m_NextWordPtr < m_Buff.length())
@@ -109,8 +107,12 @@ void JudgerFSM::FSM()
                     if(!m_SumOfBigPara)
                         m_CurrentScope = "";
                 }
+                else if(m_CurrentWord == "(")
+                {
+                    m_PreState = state;
+                    state = util::TYPE_CONVERSION;
+                }
             }
-            
             break;
         
         case util::DEFINE_DATA_TYPE:
@@ -157,6 +159,11 @@ void JudgerFSM::FSM()
                 WhenDefineVariable();
                 if(m_CurrentWord[0] == ',')
                     state = util::DEFINE_DATA_TYPE;
+                else if(m_CurrentWord == "=")
+                {
+                    m_EqualLeft = m_VariableName;
+                    state = util::INIT;
+                }
                 else
                     state = util::INIT;
             }
@@ -223,6 +230,11 @@ void JudgerFSM::FSM()
             }
             else if(m_CurrentWord == ".")
                 state = util::VARIABLE_NAME;
+            else if(m_CurrentWord == "=")
+            {
+                m_EqualLeft = m_VariableName;
+                state = util::INIT;
+            }
             else
                 state = util::INIT;
             break;
@@ -261,6 +273,13 @@ void JudgerFSM::FSM()
                     state = util::DEFINE_VARIABLE_NAME;
                 }
             }
+
+        case util::TYPE_CONVERSION:
+            if(m_CurrentWord == ")")
+                state = m_PreState;
+            
+            
+
         default:
             break;
         }

@@ -3,7 +3,8 @@
 using namespace spdlog;
 
 FormatJudger::FormatJudger(string& code, int indent_size, bool left_big_para, bool comma_space, int max_statement):
-Judger(code), m_IndentSize(indent_size), m_LeftBigPara(left_big_para), m_CommaSpace(comma_space), m_MaxStatement(max_statement){}
+Judger(code), m_IndentSize(indent_size), m_LeftBigPara(left_big_para), m_CommaSpace(comma_space), m_MaxStatement(max_statement),
+m_CurrentRow(0), m_CurrentLayer(0), m_SingleSum(0), m_CurrentIsSingle(false), m_NextIsSingle(false){}
 
 FormatJudger::~FormatJudger(){}
 
@@ -11,10 +12,10 @@ void FormatJudger::CheckSpace()
 {
     for(int i=0; i<m_RowStr.length(); i++)
     {
-        if(m_RowStr[i] == ',' && i!= m_RowStr.length())
+        if((m_RowStr[i] == ',' || m_RowStr[i] == ';') && i!= m_RowStr.length())
         {
             if(m_RowStr[i+1] != ' ' && m_RowStr[i+1] != '\n' && m_RowStr[i+1] != '\t')
-                throw JudgerException(m_CurrentRow,",后缺少空格");
+                throw JudgerException(m_CurrentRow,",或;后缺少空格");
         }
     }
 }
@@ -152,7 +153,6 @@ void FormatJudger::judge()
 {
     try
     {
-        m_CurrentRow = 0;
         size_t las = 0;
         string ret;
         for(size_t pi=0; pi<m_Buff.length(); pi++)

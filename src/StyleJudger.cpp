@@ -7,24 +7,7 @@ StyleJudger::StyleJudger(string& code, const char* global_prefix, const char* wh
     m_GlobalPrefix(global_prefix), m_FunctionNaming(func_naming), m_GlobalNaming(global_naming),
     m_LocalNaming(local_naming), m_SingleName(single_name)
 {
-    //处理参数
-    vector<string> vet;
-    string tmp(white_list);
-    int las = 0;
-    for(int i=0; i<=tmp.length(); i++)
-    {
-        if(i==tmp.length() || tmp[i] == ' ')
-        {
-            if(i>las)
-            {
-                vet.push_back(tmp.substr(las,i-las));
-                info("白名单: {}",vet.back());
-            }
-            las = i+1;
-        }
-    }
-    for(int i=0; i<vet.size(); i++)
-        m_WhiteList[vet[i]] = 1;
+    util::ParseString(white_list,m_WhiteList);
 }
 
 StyleJudger::~StyleJudger(){}
@@ -67,6 +50,36 @@ void StyleJudger::WhenDefineFunction()
 }
 
 void StyleJudger::WhenDefineVariable()
+{
+    //常用变量名
+    if(m_VariableName=="i" || m_VariableName=="j" || m_VariableName=="k" ||
+            m_VariableName=="x" || m_VariableName=="y" || m_VariableName=="z")
+        return;
+    //白名单
+    if(m_WhiteList.count(m_VariableName))
+        return;
+    if(m_SingleName && m_VariableName.length() == 1)
+        throw JudgerException(m_CurrentRow, m_VariableName + ": 过短的命名");
+    //全局变量
+    if(m_CurrentScope == "")
+    {
+        if(m_GlobalPrefix.length())
+        {
+            if(m_VariableName.substr(0,m_GlobalPrefix.length()) != m_GlobalPrefix)
+                throw JudgerException(m_CurrentRow, m_VariableName + ": 缺少前缀" + m_GlobalPrefix);
+            m_VariableName = m_VariableName.substr(m_GlobalPrefix.length(),m_VariableName.length()-m_GlobalPrefix.length());
+        }
+        CheckNaming(m_VariableName, m_GlobalNaming, true);
+        m_VariableName = m_GlobalPrefix + m_VariableName;
+    }
+    //局部变量
+    else
+    {
+        CheckNaming(m_VariableName, m_LocalNaming, false);
+    }
+}
+
+void StyleJudger::WhenDefineArray()
 {
     //常用变量名
     if(m_VariableName=="i" || m_VariableName=="j" || m_VariableName=="k" ||

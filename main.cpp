@@ -20,13 +20,13 @@ void Func()
 
 void Memory()
 {
-    judger->MemoryJudge("nums");
+    judger->MemoryJudge("nums", true);
     cout << judger->GetResult() << '\n';
 }
 
 void Style()
 {
-    judger->StyleJudge("global_", "", 3, 3, 3, true);
+    judger->StyleJudge("global_", "ans", 3, 3, 3, true);
     cout << judger->GetResult() << '\n';
 }
 
@@ -38,10 +38,10 @@ int main(){
     string Str = buf.str();
     judger = new ExtraJudger(Str.c_str());
     
-    Format();
+    //Format();
     //Func();
     //Memory();
-    //Style();
+    Style();
     delete judger;
     return 0;
 }
