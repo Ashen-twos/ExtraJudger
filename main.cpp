@@ -38,10 +38,10 @@ int main(){
     string Str = buf.str();
     judger = new ExtraJudger(Str.c_str());
     
-    //Format();
+    Format();
     //Func();
     //Memory();
-    Style();
+    //Style();
     delete judger;
     return 0;
 }

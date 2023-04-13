@@ -2,12 +2,12 @@
 
 using namespace spdlog;
 
-FunctionJudger::FunctionJudger(string& code, const char* blacklist, const char* whitelist,
+FunctionJudger::FunctionJudger(string& code, const char* black_list, const char* white_list,
     int max_statement, bool disableIO) : JudgerFSM(code), m_MaxOfStatement(max_statement), m_DisableIO(disableIO)
 
 {
-    util::ParseString(blacklist, m_FunctionBlacklist);
-    util::ParseString(whitelist, m_FunctionWhitelist);
+    util::ParseString(black_list, m_FunctionBlacklist);
+    util::ParseString(white_list, m_FunctionWhitelist);
 }
 
 FunctionJudger::~FunctionJudger(){}

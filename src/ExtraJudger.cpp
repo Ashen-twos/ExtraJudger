@@ -98,11 +98,11 @@ int ExtraJudger::GetRealRow(int row)
     return row + add;
 }
 
-void ExtraJudger::FuncJudge(const char* blacklist, const char* whitelist, int max_statement, bool disableIO)
+void ExtraJudger::FuncJudge(const char* black_list, const char* white_list, int max_statement, bool disableIO)
 {
     try
     {
-        shared_ptr<FunctionJudger> judger = make_shared<FunctionJudger>(m_Buff, blacklist, whitelist, max_statement, disableIO);
+        shared_ptr<FunctionJudger> judger = make_shared<FunctionJudger>(m_Buff, black_list, white_list, max_statement, disableIO);
         judger->judge();
         if(judger->pass)
             m_Result = "success";

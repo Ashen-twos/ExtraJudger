@@ -1,27 +1,11 @@
-char* global_itertr;
-iter = (char*) malloc(sizeof(int)*1024);
-int asssole();
+#include <stdio.h>
 
-int addum()
+int g_AAA = 0;
+
+int main()
 {
-    scanf("%d",&a);
+    int myAns = 0;
+    int x, y;
+    scanf("%d%d", &x, &y);
+    printf("%d", x+y);
 }
-
-int main() 
-{
-    int ans = 0;
-    int maxum[1024];
-    for(int i=0; i<n; i++)
-        for(int i=0; i<n; i++)
-            for(int i=0; i<n; i++)
-                myAns++;
-    printf("%d\n", 1);
-    free(ptr);
-}
-
-free(iter);
-int farar()
-{
-
-}
-

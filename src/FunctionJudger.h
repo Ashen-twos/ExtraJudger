@@ -21,7 +21,7 @@ protected:
     virtual void WhenStatementEnd();
 
 public:
-    FunctionJudger(string& code, const char* blacklist, const char* whitelist, 
+    FunctionJudger(string& code, const char* black_list, const char* white_list, 
                     int max_statement, bool disableIO);
     ~FunctionJudger();
     void judge();

@@ -46,6 +46,9 @@ void StyleJudger::WhenDefineFunction()
 {
     if(m_VariableName == "main")
         return;
+    //白名单
+    if(m_WhiteList.count(m_VariableName))
+        return;
     CheckNaming(m_VariableName, m_FunctionNaming, false);
 }
 

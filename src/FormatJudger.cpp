@@ -10,9 +10,9 @@ FormatJudger::~FormatJudger(){}
 
 void FormatJudger::CheckSpace()
 {
-    for(int i=0; i<m_RowStr.length(); i++)
+    for(int i=0; i<m_RowStr.length()-1; i++)
     {
-        if((m_RowStr[i] == ',' || m_RowStr[i] == ';') && i!= m_RowStr.length())
+        if((m_RowStr[i] == ',' || m_RowStr[i] == ';') && i!= m_RowStr.length()-2)
         {
             if(m_RowStr[i+1] != ' ' && m_RowStr[i+1] != '\n' && m_RowStr[i+1] != '\t')
                 throw JudgerException(m_CurrentRow,",或;后缺少空格");
@@ -39,8 +39,8 @@ bool FormatJudger::FormatProcessRow()
     m_CurrentRow++;
     m_CurrentIsSingle = m_NextIsSingle;
     m_NextIsSingle = false;
-    //info("Line {} Len:{} Layer:{} Single:{}", m_CurrentRow, m_RowStr.length(),m_CurrentLayer, m_CurrentIsSingle, m_NextIsSingle);
-    //info(m_RowStr);
+    info("Line {} Len:{} Layer:{} Single:{}", m_CurrentRow, m_RowStr.length(),m_CurrentLayer, m_CurrentIsSingle, m_NextIsSingle);
+    info(m_RowStr);
 
     //空行的情况
     if(m_RowStr.length() == 0)
@@ -99,7 +99,7 @@ bool FormatJudger::FormatProcessRow()
     }
 
     //判断缩进长度是否合法
-    //info("Line {}: space: {} need:{}", m_CurrentRow, space, m_IndentSize*m_CurrentLayer);
+    info("Line {}: space: {} need:{}", m_CurrentRow, space, m_IndentSize*m_CurrentLayer);
     if(space != m_IndentSize*m_CurrentLayer)
         throw JudgerException(m_CurrentRow, "缩进出错");
 
@@ -116,7 +116,7 @@ bool FormatJudger::FormatProcessRow()
         if(m_RowStr[end] == '{')
         {
             //大括号样式1但{在末尾
-            if(m_LeftBigPara==1 && start != end)
+            if(m_LeftBigPara && start != end)
                 throw JudgerException(m_CurrentRow,"{ 不应置于行末");
             m_CurrentLayer++;
         }
