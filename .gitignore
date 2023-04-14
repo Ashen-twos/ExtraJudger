@@ -33,7 +33,7 @@
 
 build
 build/*
-data/
 .vscode/
 main
-data/
+test
+test.cpp

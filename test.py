@@ -1,35 +1,25 @@
-import requests
+import binding.exjudger as exjudger
 
-session = requests.session()
-data1 = {
-    "problem_id": 1,
-    "language": "C++",
-    "code":"#include <bits/stdc++.h>\n\nusing namespace std;\n\nint main()\n{\n\tlong long a,b;\n  cin >> a >> b;\n  cout << a+b;\n}",
-    "extra_config": {
-        "format": {
-            "enable": True,
-            "indent_size": 4,
-            "left_big_para": True
-        }
-    },
-    "extra_option": True
-}
+f = open("data/2.in")
+code = f.read()
 
-headers = {
-    "Cookie": "sessionid=ldssubg7ahyfo0rshrmppvf0actu5gmn"
-}
+judger =  exjudger.ExtraJudger(code)
 
-url = "http://101.43.198.81/api/"
+def Memory():
+    print(judger.MemoryJudge("nums",True))
+    print(judger.GetResult())
 
-data2 = {
-    "username": "123",
-    "password": "123456"
-}
+def Format():
+    print(judger.FormatJudge(4,True,True,3))
+    print(judger.GetResult())
 
+def Func():
+    print(judger.FuncJudge("sort", "init", 5, True))
+    print(judger.GetResult())
 
-""" resp = session.post(url+"login",data=data2)
-print(resp.text)
-print(resp.cookies) """
-resp = session.post(url+"submission",data=data1, headers=headers)
-print(resp.text)
-print(resp.cookies)
+def Style():
+    print(judger.StyleJudge("global_", "ans", 3,3,3, True))
+    print(judger.GetResult())
+    
+    
+# Style()
