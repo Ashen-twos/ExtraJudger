@@ -22,4 +22,4 @@ def Style():
     print(judger.GetResult())
     
     
-Style()
+# Style()
