@@ -19,6 +19,11 @@ private:
     bool m_NextIsSingle;          //下一行是否单行
     bool m_CommaSpace;
 
+    bool m_IndentPass;
+    bool m_ParaPass;
+    bool m_StatementPass;
+    bool m_CommaPass;
+
 
     string m_RowStr;
 

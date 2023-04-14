@@ -24,11 +24,11 @@ private:
 public:
     ExtraJudger(const char* src);
     ~ExtraJudger();
-    void FormatJudge(int indent_size, bool left_big_para, bool comma_space, int max_statement);
-    void FuncJudge(const char* black_list, const char* white_list, 
+    int FormatJudge(int indent_size, bool left_big_para, bool comma_space, int max_statement);
+    int FuncJudge(const char* black_list, const char* white_list, 
                     int max_statement, bool disableIO);
-    void MemoryJudge(const char* white_list, bool check_ptr_free);
-    void StyleJudge(const char* global_prefix, const char* white_list,
+    int MemoryJudge(const char* white_list, bool check_ptr_free);
+    int StyleJudge(const char* global_prefix, const char* white_list,
                     int func_naming, int global_naming, int local_naming, 
                     bool single_name);
     const char* GetResult();

@@ -19,8 +19,15 @@ private:
     string m_GlobalPrefix;
     map<string,int> m_WhiteList;
 
+
+    bool m_GNamePass;
+    bool m_FNamePass;
+    bool m_LNamePass;
+    bool m_PrefixPass;
+    bool m_SinglePass;
+
     bool CheckCamelCase(string& word);
-    void CheckNaming(string& word, int style, bool global);
+    void CheckNaming(string& word, int style, int type);
 
 
 protected:

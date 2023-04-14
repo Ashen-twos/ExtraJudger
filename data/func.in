@@ -2,26 +2,22 @@
 
 int g_AAA = 0;
 
-int initSff()
+int init()
 {
     a++;b++;c++;
-    printf("%d\n",a);;;;;;;;;;
+    printf("%d\n",a);;;;;;;;;
 }
-int main() {
+int main()
+{
     sort();
-    int a,b;
     int nums[10];
-        int *ptr;
+    int *ptr;
     ptr = (int*)malloc(1023);
     int myAns = 0;
     //init();
     lower_bound();
     int x, y; ; ; ;
     int asdasFd;
-    for(int i=1; i<=n; i++)
-        for(int j=1; j<=n; j++)
-            for(int k=1; k<=n; k++)
-                ans++;
     scanf("%d%d", &x, &y);;;;;;;
     printf("%d", x+y);
     free(ptr);

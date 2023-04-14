@@ -8,25 +8,25 @@ ExtraJudger* judger;
 
 void Format()
 {
-    judger->FormatJudge(4,true,true,3);
+    cout << judger->FormatJudge(4,true,true,3) << '\n';
     cout << judger->GetResult() << '\n';
 }
 
 void Func()
 {
-    judger->FuncJudge("sort lower_bound", "init", 5, true);
+    cout << judger->FuncJudge("sort lower_bound", "init", 5, true) << '\n';
     cout << judger->GetResult() << '\n';
 }
 
 void Memory()
 {
-    judger->MemoryJudge("nums", true);
+    cout << judger->MemoryJudge("nums", true) << '\n';
     cout << judger->GetResult() << '\n';
 }
 
 void Style()
 {
-    judger->StyleJudge("global_", "ans", 3, 3, 3, true);
+    cout << judger->StyleJudge("global_", "ans", 3, 3, 3, true) << '\n';
     cout << judger->GetResult() << '\n';
 }
 
@@ -38,9 +38,9 @@ int main(){
     string Str = buf.str();
     judger = new ExtraJudger(Str.c_str());
     
-    Format();
+    //Format();
     //Func();
-    //Memory();
+    Memory();
     //Style();
     delete judger;
     return 0;

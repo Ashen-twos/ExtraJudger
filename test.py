@@ -6,19 +6,19 @@ code = f.read()
 judger =  exjudger.ExtraJudger(code)
 
 def Memory():
-    judger.MemoryJudge("nums",True)
+    print(judger.MemoryJudge("nums",True))
     print(judger.GetResult())
 
 def Format():
-    judger.FormatJudge(4,True,True,3)
+    print(judger.FormatJudge(4,True,True,3))
     print(judger.GetResult())
 
 def Func():
-    judger.FuncJudge("sort", "init", 5, True)
+    print(judger.FuncJudge("sort", "init", 5, True))
     print(judger.GetResult())
 
 def Style():
-    judger.StyleJudge("global_", "ans", 3,3,3, True)
+    print(judger.StyleJudge("global_", "ans", 3,3,3, True))
     print(judger.GetResult())
     
     

@@ -65,19 +65,20 @@ void ExtraJudger::ProcessComment()
     }
 }
 
-void ExtraJudger::FormatJudge(int indent_size, bool left_big_para, bool comma_space, int max_statement)
+int ExtraJudger::FormatJudge(int indent_size, bool left_big_para, bool comma_space, int max_statement)
 {
     try
     {
         shared_ptr<FormatJudger> judger = make_shared<FormatJudger>(m_Buff, indent_size, left_big_para, comma_space, max_statement);
         judger->judge();
-        if(judger->pass)
-            m_Result = "success";
+        m_Result = judger->result;
+        return judger->pass;
     }
     catch(JudgerException& e)
     {
         e.UpdateLine(GetRealRow(e.GetLine()));
         m_Result = e.what();
+        return 0;
     }
 }
 
@@ -98,39 +99,41 @@ int ExtraJudger::GetRealRow(int row)
     return row + add;
 }
 
-void ExtraJudger::FuncJudge(const char* black_list, const char* white_list, int max_statement, bool disableIO)
+int ExtraJudger::FuncJudge(const char* black_list, const char* white_list, int max_statement, bool disableIO)
 {
     try
     {
         shared_ptr<FunctionJudger> judger = make_shared<FunctionJudger>(m_Buff, black_list, white_list, max_statement, disableIO);
         judger->judge();
-        if(judger->pass)
-            m_Result = "success";
+        m_Result = judger->result;
+        return judger->pass;
     }
     catch(JudgerException& e)
     {
         e.UpdateLine(GetRealRow(e.GetLine()));
         m_Result = e.what();
+        return 0;
     }
 }
 
-void ExtraJudger::MemoryJudge(const char* white_list, bool check_ptr_free)
+int ExtraJudger::MemoryJudge(const char* white_list, bool check_ptr_free)
 {
     try
     {
         shared_ptr<MemoryJudger> judger = make_shared<MemoryJudger>(m_Buff, white_list, check_ptr_free);
         judger->judge();
-        if(judger->pass)
-            m_Result = "success";
+        m_Result = judger->result;
+        return judger->pass;
     }
     catch(JudgerException& e)
     {
         e.UpdateLine(GetRealRow(e.GetLine()));
         m_Result = e.what();
+        return 0;
     }
 }
 
-void ExtraJudger::StyleJudge(const char* global_prefix, const char* white_list,
+int ExtraJudger::StyleJudge(const char* global_prefix, const char* white_list,
     int func_naming, int global_naming, int local_naming, bool single_name)
 {
     try
@@ -138,13 +141,14 @@ void ExtraJudger::StyleJudge(const char* global_prefix, const char* white_list,
         shared_ptr<StyleJudger> judger = make_shared<StyleJudger>(m_Buff, global_prefix, white_list,
             func_naming, global_naming, local_naming, single_name);
         judger->judge();
-        if(judger->pass)
-            m_Result = "success";
+        m_Result = judger->result;
+        return judger->pass;
     }
     catch(JudgerException& e)
     {
         e.UpdateLine(GetRealRow(e.GetLine()));
         m_Result = e.what();
+        return 0;
     }
 }
 

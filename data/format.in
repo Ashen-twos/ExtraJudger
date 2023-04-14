@@ -2,14 +2,13 @@
 
 int g_AAA = 0;
 
-int initSff()
+int init()
 {
     a++;b++;c++;
-    printf("%d\n",a);;;;;;;;;;
+    printf("%d\n",a);;;;;;;;;
 }
 int main() {
     sort();
-    int a,b;
     int nums[10];
         int *ptr;
     ptr = (int*)malloc(1023);

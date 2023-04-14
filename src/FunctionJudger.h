@@ -14,6 +14,10 @@ private:
     map<string,int> m_FunctionWhitelist;    //函数黑名单
     map<string,int> m_SumOfStatement;       //函数语句数
 
+    bool m_WhitePass;
+    bool m_BlackPass;
+    bool m_StatementPass;
+    bool m_IOPass;
 
 protected:
     virtual void WhenDefineFunction();

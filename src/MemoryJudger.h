@@ -12,6 +12,9 @@ private:
     map<string,int> m_EnableArray;  //允许的数组  
     map<string,int> m_MallocPtr;
 
+    bool m_WhitePass;
+    bool m_PtrPass;
+
 protected:
     virtual void WhenDefineArray();
     virtual void WhenStatementEnd();

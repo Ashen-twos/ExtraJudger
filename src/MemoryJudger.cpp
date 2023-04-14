@@ -3,9 +3,12 @@
 using namespace spdlog;
 
 MemoryJudger::MemoryJudger(string& code, const char* white_list, bool check_ptr_free) : JudgerFSM(code),
-m_CheckPtrFree(check_ptr_free)
+m_CheckPtrFree(check_ptr_free), m_WhitePass(true), m_PtrPass(true)
 {
     util::ParseString(white_list, m_EnableArray);
+    pass = 2;
+    if(!check_ptr_free)
+        pass--;
 }
 
 MemoryJudger::~MemoryJudger(){}
@@ -13,7 +16,10 @@ MemoryJudger::~MemoryJudger(){}
 void MemoryJudger::WhenDefineArray()
 {
     if(!m_EnableArray.count(m_VariableName))
-        throw JudgerException(m_CurrentRow, m_VariableName + ": 不允许的数组");
+    {
+        m_WhitePass = false;
+        SetMessage(m_CurrentRow, m_VariableName + ": 不允许的数组");
+    }
 }
 
 void MemoryJudger::WhenCallFunction()
@@ -42,8 +48,18 @@ void MemoryJudger::judge()
     if(m_CheckPtrFree)
     {
         for(auto iter=m_MallocPtr.begin(); iter != m_MallocPtr.end(); iter++)
+        {
             if(iter->second != 0)
-                throw JudgerException(iter->second, iter->first + ": 未释放的指针");
+            {
+                m_PtrPass = false;
+                SetMessage(iter->second, iter->first + ": 未释放的指针");
+            }
+        }
     }
-    pass = true;
+    if(!m_WhitePass)
+        pass--;
+    if(!m_PtrPass)
+        pass--;
+    if(m_WhitePass && m_PtrPass)
+        result = "success";
 }
